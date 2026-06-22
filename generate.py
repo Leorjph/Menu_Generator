@@ -8,11 +8,11 @@ from deep_translator import GoogleTranslator
 
 
 textfile_path = 'menu.txt'
-template_path = '.\\Templates'
-image_path = '.\\Images'
-images = {'caution' : '\\caution.png'}
+template_path = './Templates'
+image_path = './Images'
+images = {'caution' : '/caution.png'}
 output_file_name = 'Menu-Iron_Skillet.docx'
-io_folder = ".\\"
+io_folder = "./"
 
 TEXT_WIDTH = 5.65
 IMG_WIDTH = 7.5-TEXT_WIDTH
@@ -27,18 +27,18 @@ FONT_PROFILES = {
 
 
 TAGS = {
-    'vegan' : '\\vegan.png',
-    'v' : '\\vegan.png',
-    'vegetarian' : '\\vegetarian.png',
-    'veg' : '\\vegetarian.png',
-    'eat well' : '\\eat_well.png',
-    'ew' : '\\eat_well.png',
-    'mb' : '\\eat_well.png',
-    'halal' : '\\halal.png',
-    'h' : '\\halal.png',
-    'low carbon' : '\\low_carbon.png',
-    'lc' : '\\low_carbon.png',
-    'fe' : '\\low_carbon.png'
+    'vegan' : '/vegan.png',
+    'v' : '/vegan.png',
+    'vegetarian' : '/vegetarian.png',
+    'veg' : '/vegetarian.png',
+    'eat well' : '/eat_well.png',
+    'ew' : '/eat_well.png',
+    'mb' : '/eat_well.png',
+    'halal' : '/halal.png',
+    'h' : '/halal.png',
+    'low carbon' : '/low_carbon.png',
+    'lc' : '/low_carbon.png',
+    'fe' : '/low_carbon.png'
 }
 
 
@@ -190,5 +190,5 @@ def add_tags(cell, tags, text_cell):
 
 if __name__ == '__main__':
     items = parse_text()
-    create_doc('\\is_template.docx', items, save=True)
+    create_doc('/is_template.docx', items, save=True)
     print(f"\nSuccessfully generated {output_file_name}\n")
