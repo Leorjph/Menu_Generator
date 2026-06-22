@@ -3,6 +3,7 @@ from generate import parse_text, create_doc
 from io import BytesIO, StringIO
 
 st.title("Text to Docx Menu Generator")
+output_file_name = "Menu-Iron_Skillet.docx"
 
 uploaded = st.file_uploader(
     "Upload text file",
@@ -23,6 +24,6 @@ if uploaded:
     st.download_button(
         "Download Menu",
         output,
-        file_name="Menu-Iron_Skillet.docx",
+        file_name=output_file_name,
         mime = "application/vnd.openxmlformats-officedocuments.wordprocessingxml.document"
     )
