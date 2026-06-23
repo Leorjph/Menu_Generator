@@ -55,10 +55,14 @@ def parse_text(f = None):
         if match:
             name = match.group(1).strip()
             ingredients = f.readline().strip()
+            if ingredients == '-':
+                    ingredients = None
             tags = f.readline().strip().lower()
-            allergens = ''
-            if tags != '\n':
-                allergens = f.readline().strip()
+            if tags == '-':
+                    tags = None
+            allergens = f.readline().strip()
+            if allergens == '-':
+                    allergens = None
             items.append({'name':name, 'ingredients':ingredients, 'tags':tags, 'allergens':allergens})
     f.close()
     return items
@@ -121,25 +125,29 @@ def create_doc(template_name, items, save=False):
         image_cell = table.cell(i+1, 1)
         print(f"Generating item {i+1}")
 
-        p = format_text_paragraphs(text_cell, spacing = 7)
-        name_fr = GoogleTranslator(source="en", target="fr").translate(item['name'])
-        run = p.add_run(name_fr)
-        apply_font_profile(run, 'name_fr')
+        if itemm['name']:
+            p = format_text_paragraphs(text_cell, spacing = 7)
+            name_fr = GoogleTranslator(source="en", target="fr").translate(item['name'])
+            run = p.add_run(name_fr)
+            apply_font_profile(run, 'name_fr')
 
-        p = format_text_paragraphs(text_cell, spacing = 8)
-        ingredients_fr = GoogleTranslator(source="en", target="fr").translate(item['ingredients'])
-        run = p.add_run(ingredients_fr)
-        apply_font_profile(run, 'ingredients_fr')
+        if item['ingredients']:
+            p = format_text_paragraphs(text_cell, spacing = 8)
+            ingredients_fr = GoogleTranslator(source="en", target="fr").translate(item['ingredients'])
+            run = p.add_run(ingredients_fr)
+            apply_font_profile(run, 'ingredients_fr')
 
-        p = format_text_paragraphs(text_cell, spacing = 7)
-        run = p.add_run(item['name'])
-        apply_font_profile(run, 'name_en')
+        if itemm['name']:
+            p = format_text_paragraphs(text_cell, spacing = 7)
+            run = p.add_run(item['name'])
+            apply_font_profile(run, 'name_en')
 
-        p = format_text_paragraphs(text_cell, spacing = 8, space_after = 0)
-        run = p.add_run(item['ingredients'])
-        apply_font_profile(run, 'ingredients_en')
+        if item['ingredients']:
+            p = format_text_paragraphs(text_cell, spacing = 8, space_after = 0)
+            run = p.add_run(item['ingredients'])
+            apply_font_profile(run, 'ingredients_en')
         
-        if item['allergens'] != '':
+        if item['allergens']:
             inner_table = text_cell.add_table(rows=1, cols=2)
             
             inner_table.columns[0].width = Inches(0.3)
@@ -156,7 +164,8 @@ def create_doc(template_name, items, save=False):
             run = p.add_run(f'{allergens} / {allergens_fr}')
             apply_font_profile(run, 'allergens')
 
-        add_tags(image_cell, item['tags'], text_cell)
+        if item['tags']:
+            add_tags(image_cell, item['tags'], text_cell)
 
     if save:
         doc.save(io_folder + output_file_name)
