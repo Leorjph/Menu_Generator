@@ -125,7 +125,7 @@ def create_doc(template_name, items, save=False):
         image_cell = table.cell(i+1, 1)
         print(f"Generating item {i+1}")
 
-        if itemm['name']:
+        if item['name']:
             p = format_text_paragraphs(text_cell, spacing = 7)
             name_fr = GoogleTranslator(source="en", target="fr").translate(item['name'])
             run = p.add_run(name_fr)
