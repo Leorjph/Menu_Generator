@@ -137,7 +137,7 @@ def create_doc(template_name, items, save=False):
             run = p.add_run(ingredients_fr)
             apply_font_profile(run, 'ingredients_fr')
 
-        if itemm['name']:
+        if item['name']:
             p = format_text_paragraphs(text_cell, spacing = 7)
             run = p.add_run(item['name'])
             apply_font_profile(run, 'name_en')
